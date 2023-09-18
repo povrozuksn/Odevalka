@@ -1,0 +1,195 @@
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe, файл: c:\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x004F42FC (32-bit), Flags: CMdRE0, Thread: 0x2C0C (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00416F73 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: txBitBlt() at c:/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0041DA5F in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (50):
+
+     48:             txSelectFont("Times New Roman", 24);
+     49:             txDrawText (0, 50, 1200, 200, "Кнопка 1 нажата");
+=>   50:             txBitBlt (txDC(), 100, 200, 200, 125, pic1);
+     51:         }
+     52: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 15 2023 19:48:49, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 15 2023 19:48:53
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe, файл: c:\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x004F42FC (32-bit), Flags: CMdRE0, Thread: 0x312C (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00416F73 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: txBitBlt() at c:/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0041DA5F in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (50):
+
+     48:             txSelectFont("Times New Roman", 24);
+     49:             txDrawText (0, 50, 1200, 200, "Кнопка 1 нажата");
+=>   50:             txBitBlt (txDC(), 100, 200, 300, 700, pic1);
+     51:         }
+     52: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 15 2023 19:49:53, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 15 2023 19:49:58
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe, файл: c:\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x004F42FC (32-bit), Flags: CMdRE0, Thread: 0xB74 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00416F73 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: txBitBlt() at c:/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0041D95C in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (47):
+
+     45:         if(clickButton(60))
+     46:         {
+=>   47:             txBitBlt (txDC(), 100, 200, 300, 900, pic1);
+     48:         }
+     49: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 15 2023 19:51:18, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 15 2023 19:51:22
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe, файл: c:\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x004F42FC (32-bit), Flags: CMdRE0, Thread: 0x1A24 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00416F73 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: txBitBlt() at c:/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0041D95C in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (47):
+
+     45:         if(clickButton(60))
+     46:         {
+=>   47:             txBitBlt (txDC(), 100, 200, 300, 900, pic1);
+     48:         }
+     49: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 15 2023 19:51:18, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 15 2023 19:51:30
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe, файл: c:\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x004F42FC (32-bit), Flags: CMdRE0, Thread: 0x29B4 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00416F73 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: txBitBlt() at c:/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0041D95C in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (47):
+
+     45:         if(clickButton(60))
+     46:         {
+=>   47:             txBitBlt (txDC(), 100, 200, 300, 700, pic1);
+     48:         }
+     49: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 15 2023 19:52:26, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 15 2023 19:52:31
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
