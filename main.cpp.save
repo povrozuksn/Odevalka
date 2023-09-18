@@ -20,6 +20,14 @@ bool clickButton(int x)
             txMouseY() >= 35 && txMouseY() <= 75);
 }
 
+bool clickPictures(int y)
+{
+    return( txMouseButtons() == 1 &&
+            txMouseX() >= 20 && txMouseX() <= 100 &&
+            txMouseY() >= y && txMouseY() <= y+200);
+}
+
+
 int main()
 {
     txCreateWindow (1200, 700);
@@ -28,6 +36,10 @@ int main()
 
     HDC  pic1 = txLoadImage ("Pictures/Girl.bmp");
     HDC  pic2 = txLoadImage ("Pictures/Boy.bmp");
+    bool pic1_menu_visible = false;
+    bool pic2_menu_visible = false;
+    bool pic1_central_visible = false;
+    bool pic2_central_visible = false;
 
 
     while(!GetAsyncKeyState (VK_ESCAPE))
@@ -38,18 +50,52 @@ int main()
         txClear();
 
 
-        drawButton(60, "Button1");
+        drawButton(60, "Персонаж");
         drawButton(250, "Button2");
 
 
         if(clickButton(60))
         {
-            txTransparentBlt (txDC(), 100, 200, 300, 700, pic1, 0, 0, TX_WHITE);
+            pic1_menu_visible = true;
+            pic2_menu_visible = true;
         }
+
+        if(pic1_menu_visible)
+        {
+            Win32::TransparentBlt (txDC(), 20, 100, 80, 200, pic1, 0, 0, 240, 600, TX_WHITE);
+        }
+
+        if(pic2_menu_visible)
+        {
+            Win32::TransparentBlt (txDC(), 20, 300, 80, 200, pic2, 0, 0, 240, 600, TX_WHITE);
+        }
+
+        if(clickPictures(100))
+        {
+            pic1_central_visible = true;
+        }
+
+        if(pic1_central_visible)
+        {
+            Win32::TransparentBlt (txDC(), 500, 100, 240, 600, pic1, 0, 0, 240, 600, TX_WHITE);
+        }
+
+        if(clickPictures(300))
+        {
+            pic2_central_visible = true;
+        }
+
+        if(pic2_central_visible)
+        {
+            Win32::TransparentBlt (txDC(), 500, 100, 240, 600, pic2, 0, 0, 240, 600, TX_WHITE);
+        }
+
+
+
+
 
         if(clickButton(250))
         {
-            txTransparentBlt (txDC(), 100, 200, 300, 900, pic2, 0, 0, TX_WHITE);
         }
 
 
