@@ -1,23 +1,48 @@
 #include "TXLib.h"
 
-void drawButton(int x, const char* name)
+struct Button
 {
-    txSetColor(TX_TRANSPARENT);
-    txSetFillColor(TX_GRAY);
-    Win32::RoundRect (txDC(), x+5, 35, x+145, 75, 30, 30);
-    txSetColor(TX_BLACK, 2);
-    txSetFillColor(TX_WHITE);
-    Win32::RoundRect (txDC(), x, 30, x+140, 70, 30, 30);
-    txSetColor(TX_BLACK);
-    txSelectFont("Times New Roman", 24);
-    txDrawText (x, 30, x+140, 70, name);
-}
+   int x;
+   const char* name;
 
-bool clickButton(int x)
+   void drawButton()
+    {
+        txSetColor(TX_TRANSPARENT);
+        txSetFillColor(TX_GRAY);
+        Win32::RoundRect (txDC(), x+5, 35, x+145, 75, 30, 30);
+        txSetColor(TX_BLACK, 2);
+        txSetFillColor(TX_WHITE);
+        Win32::RoundRect (txDC(), x, 30, x+140, 70, 30, 30);
+        txSetColor(TX_BLACK);
+        txSelectFont("Times New Roman", 24);
+        txDrawText (x, 30, x+140, 70, name);
+    }
+
+    bool clickButton()
+    {
+        return( txMouseButtons() == 1 &&
+                txMouseX() >= x && txMouseX() <= x+140 &&
+                txMouseY() >= 35 && txMouseY() <= 75);
+    }
+
+};
+
+struct Picture
 {
-    return( txMouseButtons() == 1 &&
-            txMouseX() >= x && txMouseX() <= x+140 &&
-            txMouseY() >= 35 && txMouseY() <= 75);
+    int x;
+    int y;
+    HDC pic;
+    int w_scr;
+    int h_scr;
+    int w;
+    int h;
+    bool visible;
+    
+};
+
+void drawPictures(int x, int y, int width_scr, int height_scr, HDC picture)
+{
+    Win32::TransparentBlt (txDC(), x, y, width_scr, height_scr, picture, 0, 0, 240, 600, TX_WHITE);
 }
 
 bool clickPictures(int y)
@@ -33,12 +58,49 @@ int main()
     txCreateWindow (1200, 700);
     txDisableAutoPause();
     txTextCursor (false);
+    int count_btn = 4;
 
-    HDC  pic1 = txLoadImage ("Pictures/Girl.bmp");
-    HDC  pic2 = txLoadImage ("Pictures/Boy.bmp");
+    //Инициализация кнопок
+    Button btn[count_btn];
+    btn[0] = {60, "Персонаж"};
+    btn[1] = {250, "Одежда"};
+    btn[2] = {440, "Аксесуары"};
+    btn[3] = {630, "Трусы"};
+    
+    //Инициализация картинки меню
+    Picture menuPic1 = {20, 100, txLoadImage("Pictures/Персонаж/Girl.bmp"), 80, 200, 240, 600, false};
+    Picture menuPic2 = {20, 300, txLoadImage("Pictures/Персонаж/Boy.bmp"), 80, 200, 240, 600, false};
+    
+    
+    //Инициализация картинки в центре     
+    Picture centrPic1 = {500, 100, txLoadImage("Pictures/Персонаж/Girl.bmp"), 240, 600, 240, 600, false};
+    Picture centrPic2 = {500, 100, txLoadImage("Pictures/Персонаж/Boy.bmp"), 240, 600, 240, 600, false};
+    
+    /*
+    HDC  pic1 = txLoadImage ("Pictures/Персонаж/Girl.bmp");
+    int pic1_menu_x = 20;
+    int pic1_menu_y = 100;
+    int pic1_menu_width_scr = 80;
+    int pic1_menu_height_scr = 200;
     bool pic1_menu_visible = false;
-    bool pic2_menu_visible = false;
+    */
+    int pic1_centr_x = 500;
+    int pic1_centr_y = 100;
+    int pic1_centr_width_scr = 240;
+    int pic1_centr_height_scr = 600;
     bool pic1_central_visible = false;
+    /*
+    HDC  pic2 = txLoadImage ("Pictures/Персонаж/Boy.bmp");
+    int pic2_menu_x = 20;
+    int pic2_menu_y = 300;
+    int pic2_menu_width_scr = 80;
+    int pic2_menu_height_scr = 200;
+    bool pic2_menu_visible = false;
+    */
+    int pic2_centr_x = 500;
+    int pic2_centr_y = 100;
+    int pic2_centr_width_scr = 240;
+    int pic2_centr_height_scr = 600;
     bool pic2_central_visible = false;
 
 
@@ -49,12 +111,13 @@ int main()
         txSetFillColor(TX_YELLOW);
         txClear();
 
+        //Рисование кнопок
+        for(int i=0; i<count_btn; i++)
+        {
+            btn[i].drawButton();
+        }
 
-        drawButton(60, "Персонаж");
-        drawButton(250, "Button2");
-
-
-        if(clickButton(60))
+        if(btn[0].clickButton())
         {
             pic1_menu_visible = true;
             pic2_menu_visible = true;
@@ -62,12 +125,12 @@ int main()
 
         if(pic1_menu_visible)
         {
-            Win32::TransparentBlt (txDC(), 20, 100, 80, 200, pic1, 0, 0, 240, 600, TX_WHITE);
+            drawPictures(pic1_menu_x, pic1_menu_y, pic1_menu_width_scr, pic1_menu_height_scr, pic1);
         }
 
         if(pic2_menu_visible)
         {
-            Win32::TransparentBlt (txDC(), 20, 300, 80, 200, pic2, 0, 0, 240, 600, TX_WHITE);
+            drawPictures(pic2_menu_x, pic2_menu_y, pic2_menu_width_scr, pic2_menu_height_scr, pic2);
         }
 
         if(clickPictures(100))
@@ -77,7 +140,7 @@ int main()
 
         if(pic1_central_visible)
         {
-            Win32::TransparentBlt (txDC(), 500, 100, 240, 600, pic1, 0, 0, 240, 600, TX_WHITE);
+            drawPictures(pic1_centr_x, pic1_centr_y, pic1_centr_width_scr, pic1_centr_height_scr, pic1);
         }
 
         if(clickPictures(300))
@@ -87,17 +150,8 @@ int main()
 
         if(pic2_central_visible)
         {
-            Win32::TransparentBlt (txDC(), 500, 100, 240, 600, pic2, 0, 0, 240, 600, TX_WHITE);
+            drawPictures(pic2_centr_x, pic2_centr_y, pic2_centr_width_scr, pic2_centr_height_scr, pic2);
         }
-
-
-
-
-
-        if(clickButton(250))
-        {
-        }
-
 
         txEnd();
         txSleep(50);
@@ -105,7 +159,6 @@ int main()
 
     txDeleteDC (pic1);
     txDeleteDC (pic2);
-
 
 return 0;
 }
