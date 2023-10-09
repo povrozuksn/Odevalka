@@ -69,10 +69,10 @@ int main()
 
     //Инициализация кнопок
     Button btn[count_btn];
-    btn[0] = {60, "Персонаж", "Персонаж"};
-    btn[1] = {250, "Одежда", "Одежда"};
-    btn[2] = {440, "Аксесуары", "Аксесуары"};
-    btn[3] = {630, "Трусы"};
+    btn[0] = {50, "Персонаж", "Персонаж"};
+    btn[1] = {200, "Одежда", "Одежда"};
+    btn[2] = {350, "Аксесуары", "Аксесуары"};
+    btn[3] = {500, "Трусы"};
 
     //Инициализация картинки меню
     Picture menuPic[count_pic];
@@ -94,7 +94,8 @@ int main()
     centrPic[4] = {500, 100, menuPic[4].pic, 100, 105, menuPic[4].w, menuPic[4].h, false, "Аксесуары"};
     centrPic[5] = {500, 100, menuPic[5].pic, 100,  59, menuPic[5].w, menuPic[5].h, false, "Аксесуары"};
 
-
+    int vybor = -1;
+    bool mouse_click = false;
 
     while(!GetAsyncKeyState (VK_ESCAPE))
     {
@@ -164,6 +165,56 @@ int main()
             }
         }
 
+
+        //Выбор центральной картинки
+        for(int i=0; i<count_pic; i++)
+        {
+            if(txMouseButtons() == 1 &&
+                txMouseX() >= centrPic[i].x &&
+                txMouseX() <= centrPic[i].x + centrPic[i].w_scr &&
+                txMouseY() >= centrPic[i].y &&
+                txMouseY() <= centrPic[i].y + centrPic[i].h_scr &&
+                centrPic[i].visible)
+                {
+                    vybor = i;
+                    mouse_click = true;
+                }
+        }
+        /*
+        char str[100];
+        sprintf(str, "Индекс выбранной картинки = %d", vybor);
+        txTextOut(50, 650, str);
+        */
+
+        if(vybor>=0)
+        {
+             if(GetAsyncKeyState (VK_LEFT))
+             {
+                centrPic[vybor].x -= 5;
+             }
+             if(GetAsyncKeyState (VK_RIGHT))
+             {
+                centrPic[vybor].x += 5;
+             }
+             if(GetAsyncKeyState (VK_UP))
+             {
+                centrPic[vybor].y -= 5;
+             }
+             if(GetAsyncKeyState (VK_DOWN))
+             {
+                centrPic[vybor].y += 5;
+             }
+             if(GetAsyncKeyState (VK_OEM_PLUS) || GetAsyncKeyState (VK_ADD))
+             {
+                centrPic[vybor].w_scr = centrPic[vybor].w_scr * 1.1;
+                centrPic[vybor].h_scr = centrPic[vybor].h_scr * 1.1;
+             }
+             if(GetAsyncKeyState (VK_OEM_MINUS) || GetAsyncKeyState (VK_SUBTRACT))
+             {
+                centrPic[vybor].w_scr = centrPic[vybor].w_scr * 0.9;
+                centrPic[vybor].h_scr = centrPic[vybor].h_scr * 0.9;
+             }
+        }
 
 
         txEnd();
