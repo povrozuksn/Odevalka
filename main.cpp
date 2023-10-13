@@ -39,12 +39,13 @@ struct Picture
     int h;
     bool visible;
     string category;
+    //int
 
     void draw()
     {
         if(visible)
         {
-            Win32::TransparentBlt (txDC(), x, y, w_scr, h_scr, pic, 0, 0, w, h, TX_WHITE);
+            Win32::TransparentBlt (txDC(), x, y, w_scr, h_scr, pic, 200, 0, w, h, TX_WHITE);
         }
     }
 
@@ -177,14 +178,14 @@ int main()
                 centrPic[i].visible)
                 {
                     vybor = i;
-                    mouse_click = true;
+                    mouse_click = false;
                 }
         }
-        /*
+
         char str[100];
         sprintf(str, "Индекс выбранной картинки = %d", vybor);
         txTextOut(50, 650, str);
-        */
+
 
         if(vybor>=0)
         {
@@ -215,6 +216,24 @@ int main()
                 centrPic[vybor].h_scr = centrPic[vybor].h_scr * 0.9;
              }
         }
+
+        if(vybor>=0)
+        {
+            if(txMouseButtons() == 1 && !mouse_click)
+            {
+                centrPic[vybor].x = txMouseX() - centrPic[vybor].w_scr/2;
+                centrPic[vybor].y = txMouseY() - centrPic[vybor].h_scr/2;
+            }
+            else
+            {
+                if(txMouseButtons() != 1)
+                {
+                    mouse_click = true;
+                }
+            }
+        }
+
+
 
 
         txEnd();
