@@ -2,7 +2,17 @@
 <BrowseTracker_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3652" topLine="77" />
+		<Cursor position="1677" topLine="0" />
+		<BrowseMarks positions="" />
+		<Book_Marks positions="" />
+	</File>
+	<File name="buttom.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="712" topLine="0" />
+		<BrowseMarks positions="" />
+		<Book_Marks positions="" />
+	</File>
+	<File name="picture.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="20" topLine="0" />
 		<BrowseMarks positions="" />
 		<Book_Marks positions="" />
 	</File>

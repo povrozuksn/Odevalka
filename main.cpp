@@ -1,64 +1,6 @@
 #include "TXLib.h"
-
-struct Button
-{
-   int x;
-   const char* name;
-   string category;
-
-   void draw()
-    {
-        txSetColor(TX_TRANSPARENT);
-        txSetFillColor(TX_GRAY);
-        Win32::RoundRect (txDC(), x+5, 35, x+145, 75, 30, 30);
-        txSetColor(TX_BLACK, 2);
-        txSetFillColor(TX_WHITE);
-        Win32::RoundRect (txDC(), x, 30, x+140, 70, 30, 30);
-        txSetColor(TX_BLACK);
-        txSelectFont("Times New Roman", 24);
-        txDrawText (x, 30, x+140, 70, name);
-    }
-
-    bool click()
-    {
-        return( txMouseButtons() == 1 &&
-                txMouseX() >= x && txMouseX() <= x+140 &&
-                txMouseY() >= 35 && txMouseY() <= 75);
-    }
-
-};
-
-struct Picture
-{
-    int x;
-    int y;
-    HDC pic;
-    int w_scr;
-    int h_scr;
-    int w;
-    int h;
-    bool visible;
-    string category;
-    //int
-
-    void draw()
-    {
-        if(visible)
-        {
-            Win32::TransparentBlt (txDC(), x, y, w_scr, h_scr, pic, 200, 0, w, h, TX_WHITE);
-        }
-    }
-
-    bool click()
-    {
-        return( txMouseButtons() == 1 &&
-                txMouseX() >= 20 && txMouseX() <= 100 &&
-                txMouseY() >= y && txMouseY() <= y+200);
-    }
-};
-
-
-
+#include "buttom.cpp"
+#include "picture.cpp"
 
 int main()
 {
@@ -67,6 +9,7 @@ int main()
     txTextCursor (false);
     int count_btn = 4;
     int count_pic = 6;
+    int nCentralPic = 0;
 
     //Инициализация кнопок
     Button btn[count_btn];
@@ -87,13 +30,7 @@ int main()
 
 
     //Инициализация картинки в центре
-    Picture centrPic[count_pic];
-    centrPic[0] = {500, 100, menuPic[0].pic, 240, 600, menuPic[0].w, menuPic[0].h, false, "Персонаж"};
-    centrPic[1] = {500, 100, menuPic[1].pic, 240, 600, menuPic[1].w, menuPic[1].h, false, "Персонаж"};
-    centrPic[2] = {500, 200, menuPic[2].pic, 240, 645, menuPic[2].w, menuPic[2].h, false, "Одежда"};
-    centrPic[3] = {500, 200, menuPic[3].pic, 240, 423, menuPic[3].w, menuPic[3].h, false, "Одежда"};
-    centrPic[4] = {500, 100, menuPic[4].pic, 100, 105, menuPic[4].w, menuPic[4].h, false, "Аксесуары"};
-    centrPic[5] = {500, 100, menuPic[5].pic, 100,  59, menuPic[5].w, menuPic[5].h, false, "Аксесуары"};
+    Picture centrPic[100];
 
     int vybor = -1;
     bool mouse_click = false;
@@ -162,30 +99,40 @@ int main()
         {
             if(menuPic[npic].click() && menuPic[npic].visible)
             {
-                centrPic[npic].visible = true;
+                while(txMouseButtons() == 1)
+                {
+                    txSleep(10);
+                }
+
+                centrPic[nCentralPic] = {500, 100, menuPic[npic].pic,
+                                            menuPic[npic].w,
+                                            menuPic[npic].h,
+                                            menuPic[npic].w,
+                                            menuPic[npic].h,
+                                            menuPic[npic].visible,
+                                            menuPic[npic].category};
+                nCentralPic ++;
             }
+
         }
 
 
         //Выбор центральной картинки
         for(int i=0; i<count_pic; i++)
         {
-            if(txMouseButtons() == 1 &&
-                txMouseX() >= centrPic[i].x &&
-                txMouseX() <= centrPic[i].x + centrPic[i].w_scr &&
-                txMouseY() >= centrPic[i].y &&
-                txMouseY() <= centrPic[i].y + centrPic[i].h_scr &&
-                centrPic[i].visible)
+            if(centrPic[i].click() && centrPic[i].visible)
                 {
                     vybor = i;
                     mouse_click = false;
                 }
         }
-
+        /*
         char str[100];
         sprintf(str, "Индекс выбранной картинки = %d", vybor);
+        txTextOut(50, 600, str);
+        sprintf(str, "Колическтво центральных = %d", nCentralPic);
         txTextOut(50, 650, str);
-
+        */
 
         if(vybor>=0)
         {
@@ -245,7 +192,7 @@ int main()
         txDeleteDC (menuPic[i].pic);
     }
 
-    for(int i=0; i<count_pic; i++)
+    for(int i=0; i<nCentralPic; i++)
     {
         txDeleteDC (centrPic[i].pic);
     }
