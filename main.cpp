@@ -8,24 +8,28 @@ int main()
     txDisableAutoPause();
     txTextCursor (false);
     int count_btn = 4;
-    int count_pic = 6;
+    int count_pic = 9;
     int nCentralPic = 0;
+    char str[100];
 
     //Инициализация кнопок
     Button btn[count_btn];
     btn[0] = {50, "Персонаж", "Персонаж"};
     btn[1] = {200, "Одежда", "Одежда"};
-    btn[2] = {350, "Аксесуары", "Аксесуары"};
+    btn[2] = {350, "Голов. уборы", "Уборы"};
     btn[3] = {500, "Трусы"};
 
     //Инициализация картинки меню
     Picture menuPic[count_pic];
-    menuPic[0] = {20, 100, txLoadImage("Pictures/Персонаж/Girl.bmp"), 80, 200, 240, 600, false, "Персонаж"};
-    menuPic[1] = {20, 300, txLoadImage("Pictures/Персонаж/Boy.bmp"), 80, 200, 240, 600, false, "Персонаж"};
-    menuPic[2] = {20, 100, txLoadImage("Pictures/Одежда/Одежда1.bmp"), 80, 200, 240, 645, false, "Одежда"};
-    menuPic[3] = {20, 300, txLoadImage("Pictures/Одежда/Одежда2.bmp"), 80, 200, 240, 423, false, "Одежда"};
-    menuPic[4] = {20, 100, txLoadImage("Pictures/Аксесуары/Аксесуар1.bmp"), 100, 105, 100, 105, false, "Аксесуары"};
-    menuPic[5] = {20, 300, txLoadImage("Pictures/Аксесуары/Аксесуар2.bmp"), 100, 59, 100, 59, false, "Аксесуары"};
+    menuPic[0] = {20, 100, txLoadImage("Pictures/Персонаж/Girl.bmp"),       80,  165, 240, 500, false, "Персонаж"};
+    menuPic[1] = {20, 300, txLoadImage("Pictures/Персонаж/Boy.bmp"),        80,  165, 240, 500, false, "Персонаж"};
+    menuPic[2] = {20, 100, txLoadImage("Pictures/Одежда/Комбенезон.bmp"),   80,  140, 240, 420, false, "Одежда"};
+    menuPic[3] = {20, 250, txLoadImage("Pictures/Одежда/Платье.bmp"),       80,  140, 240, 420, false, "Одежда"};
+    menuPic[4] = {20, 400, txLoadImage("Pictures/Одежда/Пиджак.bmp"),       80,  140, 240, 420, false, "Одежда"};
+    menuPic[5] = {20, 550, txLoadImage("Pictures/Одежда/Рубаха.bmp"),       80,   80, 240, 240, false, "Одежда"};
+    menuPic[6] = {120, 100, txLoadImage("Pictures/Одежда/Джемпер.bmp"),     80,   80, 240, 240, false, "Одежда"};
+    menuPic[7] = {20, 100, txLoadImage("Pictures/Уборы/Шлем.bmp"),         100,  105, 100, 105, false, "Уборы"};
+    menuPic[8] = {20, 300, txLoadImage("Pictures/Уборы/Диадема.bmp"),      100,   59, 100,  59, false, "Уборы"};
 
 
 
@@ -54,7 +58,7 @@ int main()
             menuPic[i].draw();
         }
         //Центральные
-        for(int i=0; i<count_pic; i++)
+        for(int i=0; i<nCentralPic; i++)
         {
             centrPic[i].draw();
         }
@@ -104,7 +108,7 @@ int main()
                     txSleep(10);
                 }
 
-                centrPic[nCentralPic] = {500, 100, menuPic[npic].pic,
+                centrPic[nCentralPic] = {200, 100, menuPic[npic].pic,
                                             menuPic[npic].w,
                                             menuPic[npic].h,
                                             menuPic[npic].w,
@@ -116,9 +120,8 @@ int main()
 
         }
 
-
         //Выбор центральной картинки
-        for(int i=0; i<count_pic; i++)
+        for(int i=0; i<nCentralPic; i++)
         {
             if(centrPic[i].click() && centrPic[i].visible)
                 {
@@ -126,8 +129,8 @@ int main()
                     mouse_click = false;
                 }
         }
+
         /*
-        char str[100];
         sprintf(str, "Индекс выбранной картинки = %d", vybor);
         txTextOut(50, 600, str);
         sprintf(str, "Колическтво центральных = %d", nCentralPic);
@@ -180,6 +183,13 @@ int main()
             }
         }
 
+        if(vybor>=0 && GetAsyncKeyState (VK_DELETE))
+        {
+            centrPic[vybor] = centrPic[nCentralPic-1];
+            nCentralPic--;
+            vybor = -1;
+            mouse_click = true;
+        }
 
 
 
