@@ -7,8 +7,8 @@ int main()
     txCreateWindow (1200, 700);
     txDisableAutoPause();
     txTextCursor (false);
-    int count_btn = 4;
-    int count_pic = 9;
+    int count_btn = 5;
+    int count_pic = 20;
     int nCentralPic = 0;
     char str[100];
 
@@ -17,21 +17,42 @@ int main()
     btn[0] = {50, "Персонаж", "Персонаж"};
     btn[1] = {200, "Одежда", "Одежда"};
     btn[2] = {350, "Голов. уборы", "Уборы"};
-    btn[3] = {500, "Трусы"};
+    btn[3] = {500, "Обувь", "Обувь"};
+    btn[4] = {650, "Аксесуары", "Аксесуары"};
+
 
     //Инициализация картинки меню
     Picture menuPic[count_pic];
-    menuPic[0] = {20, 100, txLoadImage("Pictures/Персонаж/Girl.bmp"),       80,  165, 240, 500, false, "Персонаж"};
-    menuPic[1] = {20, 300, txLoadImage("Pictures/Персонаж/Boy.bmp"),        80,  165, 240, 500, false, "Персонаж"};
-    menuPic[2] = {20, 100, txLoadImage("Pictures/Одежда/Комбенезон.bmp"),   80,  140, 240, 420, false, "Одежда"};
-    menuPic[3] = {20, 250, txLoadImage("Pictures/Одежда/Платье.bmp"),       80,  140, 240, 420, false, "Одежда"};
-    menuPic[4] = {20, 400, txLoadImage("Pictures/Одежда/Пиджак.bmp"),       80,  140, 240, 420, false, "Одежда"};
-    menuPic[5] = {20, 550, txLoadImage("Pictures/Одежда/Рубаха.bmp"),       80,   80, 240, 240, false, "Одежда"};
-    menuPic[6] = {120, 100, txLoadImage("Pictures/Одежда/Джемпер.bmp"),     80,   80, 240, 240, false, "Одежда"};
-    menuPic[7] = {20, 100, txLoadImage("Pictures/Уборы/Шлем.bmp"),         100,  105, 100, 105, false, "Уборы"};
-    menuPic[8] = {20, 300, txLoadImage("Pictures/Уборы/Диадема.bmp"),      100,   59, 100,  59, false, "Уборы"};
+    menuPic[0] = { 20, 100, "Pictures/Персонаж/Girl.bmp",     txLoadImage("Pictures/Персонаж/Girl.bmp"),      80, 165, 240, 500};
+    menuPic[1] = { 20, 300, "Pictures/Персонаж/Boy.bmp",      txLoadImage("Pictures/Персонаж/Boy.bmp"),       80, 165, 240, 500};
+    menuPic[2] = { 20, 100, "Pictures/Одежда/Комбенезон.bmp", txLoadImage("Pictures/Одежда/Комбенезон.bmp"),  80, 140, 240, 420};
+    menuPic[3] = { 20, 250, "Pictures/Одежда/Пиджак.bmp",     txLoadImage("Pictures/Одежда/Пиджак.bmp"),      80, 140, 240, 420};
+    menuPic[4] = { 20, 400, "Pictures/Одежда/Рубаха.bmp",     txLoadImage("Pictures/Одежда/Рубаха.bmp"),      80,  80, 240, 240};
+    menuPic[5] = { 20, 550, "Pictures/Одежда/Джемпер.bmp",    txLoadImage("Pictures/Одежда/Джемпер.bmp"),     80,  80, 240, 240};
+    menuPic[6] = {120, 100, "Pictures/Одежда/Платье.bmp",     txLoadImage("Pictures/Одежда/Платье.bmp"),      80, 140, 240, 420};
+    menuPic[7] = {120, 250, "Pictures/Одежда/Блуза.bmp",      txLoadImage("Pictures/Одежда/Блуза.bmp"),       80,  80, 240, 240};
+    menuPic[8] = {120, 400, "Pictures/Одежда/Мини.bmp",       txLoadImage("Pictures/Одежда/Мини.bmp"),        80,  80, 240, 240};
+    menuPic[9] = {120, 550, "Pictures/Одежда/Джинсы.bmp",     txLoadImage("Pictures/Одежда/Джинсы.bmp"),      80, 140, 240, 420};
+    menuPic[10] = {20, 100, "Pictures/Уборы/Шлем.bmp",        txLoadImage("Pictures/Уборы/Шлем.bmp"),         33,  33, 100, 105};
+    menuPic[11] = {20, 200, "Pictures/Уборы/Диадема.bmp",     txLoadImage("Pictures/Уборы/Диадема.bmp"),      33,  20, 100,  60};
+    menuPic[12] = {20, 300, "Pictures/Уборы/Косынка.bmp",     txLoadImage("Pictures/Уборы/Косынка.bmp"),      33,  20, 100,  60};
+    menuPic[13] = {20, 100, "Pictures/Обувь/Кеды.bmp",        txLoadImage("Pictures/Обувь/Кеды.bmp"),         80,  33, 240, 100};
+    menuPic[14] = {20, 200, "Pictures/Обувь/Сапоги.bmp",      txLoadImage("Pictures/Обувь/Сапоги.bmp"),       80,  67, 240, 200};
+    menuPic[15] = {20, 300, "Pictures/Обувь/Сапоги2.bmp",     txLoadImage("Pictures/Обувь/Сапоги2.bmp"),      80, 100, 240, 300};
+    menuPic[16] = {20, 100, "Pictures/Аксесуары/Кофе.bmp",    txLoadImage("Pictures/Аксесуары/Кофе.bmp"),     30,  40,  90, 120};
+    menuPic[17] = {20, 200, "Pictures/Аксесуары/Очки.bmp",    txLoadImage("Pictures/Аксесуары/Очки.bmp"),     47,  24, 140,  72};
+    menuPic[18] = {20, 300, "Pictures/Аксесуары/Планшет.bmp", txLoadImage("Pictures/Аксесуары/Планшет.bmp"),  30,  33,  90, 100};
+    menuPic[19] = {20, 400, "Pictures/Аксесуары/Часы.bmp",    txLoadImage("Pictures/Аксесуары/Часы.bmp"),     20,  50,  60, 150};
 
+    for(int i=0; i<count_pic; i++)
+    {
+        menuPic[i].visible = false;
 
+        string str = menuPic[i].adress;
+        int pos1 = str.find("/");
+        int pos2 = str.find("/", pos1+1);
+        menuPic[i].category = str.substr(pos1+1, pos2-pos1-1);
+    }
 
     //Инициализация картинки в центре
     Picture centrPic[100];
@@ -108,7 +129,9 @@ int main()
                     txSleep(10);
                 }
 
-                centrPic[nCentralPic] = {200, 100, menuPic[npic].pic,
+                centrPic[nCentralPic] = {200, 100,
+                                            menuPic[npic].adress,
+                                            menuPic[npic].pic,
                                             menuPic[npic].w,
                                             menuPic[npic].h,
                                             menuPic[npic].w,

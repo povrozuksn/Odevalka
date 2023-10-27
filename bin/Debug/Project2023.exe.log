@@ -808,3 +808,165 @@ Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
 Directory:	C:\Users\root\source\repos\Project2023
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401433 в функции __exchange_and_add() в файле c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h на строке 47. Попытка записать данные по адресу 0x00509675 в модуле C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x005B7A3C (32-bit), Flags: Cmdre0, Thread: 0x3414 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401433 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: __exchange_and_add() at c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h (47):
+
+     45:   static inline _Atomic_word 
+     46:   __exchange_and_add(volatile _Atomic_word* __mem, int __val)
+=>   47:   { return __atomic_fetch_add(__mem, __val, __ATOMIC_ACQ_REL); }
+     48: 
+     49:   static inline void
+
+# 1 0x004014A5 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: __exchange_and_add_dispatch() at c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h (80):
+
+     78: #ifdef __GTHREADS
+     79:     if (__gthread_active_p())
+=>   80:       return __exchange_and_add(__mem, __val);
+     81:     else
+     82:       return __exchange_and_add_single(__mem, __val);
+
+# 2 0x004AC29A in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: _M_dispose() at c:/codeblocks/mingw/include/c++/4.8.1/debug/functions.h (45):
+
+     43:   // An arbitrary iterator pointer is not singular.
+     44:   inline bool
+=>   45:   __check_singular_aux(const void*) { return false; }
+     46: 
+     47:   // We may have an iterator that derives from _Safe_iterator_base but isn't
+
+# 3 0x004B4193 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe at c:/codeblocks/mingw/include/c++/4.8.1/debug/functions.h (45):
+
+     43:   // An arbitrary iterator pointer is not singular.
+     44:   inline bool
+=>   45:   __check_singular_aux(const void*) { return false; }
+     46: 
+     47:   // We may have an iterator that derives from _Safe_iterator_base but isn't
+
+# 4 0x00477F4A in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe at C:/Users/root/source/repos/Project2023/picture.cpp (3):
+
+      1: #include "TXLib.h"
+      2: 
+=>    3: struct Picture
+      4: {
+      5:     int x;
+
+# 5 0x0043B194 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (38):
+
+     36:     menuPic[10] = {20, 100, txLoadImage("Pictures/Уборы/Шлем.bmp"),         100,  105, 100, 105, false, "Уборы"};
+     37:     menuPic[11] = {20, 300, txLoadImage("Pictures/Уборы/Диадема.bmp"),      100,   60, 100,  60, false, "Уборы"};
+=>   38:     menuPic[12] = {20, 500, txLoadImage("Pictures/Уборы/Косынка.bmp"),      100,   60, 100,  60, false, "Уборы"};
+     39: 
+     40: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 16 2023 19:32:41, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 23 2023 19:07:11
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401433 в функции __exchange_and_add() в файле c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h на строке 47. Попытка записать данные по адресу 0x00509675 в модуле C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400], Instance: 0x005B7A3C (32-bit), Flags: Cmdre0, Thread: 0x3414 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401433 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: __exchange_and_add() at c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h (47):
+
+     45:   static inline _Atomic_word 
+     46:   __exchange_and_add(volatile _Atomic_word* __mem, int __val)
+=>   47:   { return __atomic_fetch_add(__mem, __val, __ATOMIC_ACQ_REL); }
+     48: 
+     49:   static inline void
+
+# 1 0x004014A5 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: __exchange_and_add_dispatch() at c:/codeblocks/mingw/include/c++/4.8.1/ext/atomicity.h (80):
+
+     78: #ifdef __GTHREADS
+     79:     if (__gthread_active_p())
+=>   80:       return __exchange_and_add(__mem, __val);
+     81:     else
+     82:       return __exchange_and_add_single(__mem, __val);
+
+# 2 0x004AC29A in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: _M_dispose() at c:/codeblocks/mingw/include/c++/4.8.1/debug/functions.h (45):
+
+     43:   // An arbitrary iterator pointer is not singular.
+     44:   inline bool
+=>   45:   __check_singular_aux(const void*) { return false; }
+     46: 
+     47:   // We may have an iterator that derives from _Safe_iterator_base but isn't
+
+# 3 0x004B4193 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe at c:/codeblocks/mingw/include/c++/4.8.1/debug/functions.h (45):
+
+     43:   // An arbitrary iterator pointer is not singular.
+     44:   inline bool
+=>   45:   __check_singular_aux(const void*) { return false; }
+     46: 
+     47:   // We may have an iterator that derives from _Safe_iterator_base but isn't
+
+# 4 0x00477F4A in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe at C:/Users/root/source/repos/Project2023/picture.cpp (3):
+
+      1: #include "TXLib.h"
+      2: 
+=>    3: struct Picture
+      4: {
+      5:     int x;
+
+# 5 0x0043B194 in C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe: main() at C:/Users/root/source/repos/Project2023/main.cpp (38):
+
+     36:     menuPic[10] = {20, 100, txLoadImage("Pictures/Уборы/Шлем.bmp"),         100,  105, 100, 105, false, "Уборы"};
+     37:     menuPic[11] = {20, 300, txLoadImage("Pictures/Уборы/Диадема.bmp"),      100,   60, 100,  60, false, "Уборы"};
+=>   38:     menuPic[12] = {20, 500, txLoadImage("Pictures/Уборы/Косынка.bmp"),      100,   60, 100,  60, false, "Уборы"};
+     39: 
+     40: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-07-19 01:45:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 16 2023 19:32:41, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Oct 23 2023 19:07:10
+
+Run file:	C:\Users\root\source\repos\Project2023\bin\Debug\Project2023.exe
+Directory:	C:\Users\root\source\repos\Project2023
+
+--------------------------------------------------
