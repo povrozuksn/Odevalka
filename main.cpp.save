@@ -1,6 +1,32 @@
 #include "TXLib.h"
 #include "buttom.cpp"
 #include "picture.cpp"
+#include <fstream>
+
+
+using namespace std;
+
+
+int get_w(string adress)
+{
+    FILE *f1 = fopen(adress.c_str(), "rb");
+    unsigned char headerinfo[54];
+    fread(headerinfo, sizeof(unsigned char), 54, f1);
+    int w = *(int *)&headerinfo[18];
+
+    return w;
+}
+
+int get_h(string adress)
+{
+    FILE *f1 = fopen(adress.c_str(), "rb");
+    unsigned char headerinfo[54];
+    fread(headerinfo, sizeof(unsigned char), 54, f1);
+    int h = *(int *)&headerinfo[22];
+
+    return h;
+}
+
 
 int main()
 {
@@ -23,28 +49,50 @@ int main()
 
     //Инициализация картинки меню
     Picture menuPic[count_pic];
-    menuPic[0] = { 20, 100, "Pictures/Персонаж/Girl.bmp",     txLoadImage(adress),      80, 165, 240, 500, false, "Персонаж"};
-    menuPic[1] = { 20, 300, "Pictures/Персонаж/Boy.bmp",      txLoadImage(),       80, 165, 240, 500, false, "Персонаж"};
-    menuPic[2] = { 20, 100, "Pictures/Одежда/Комбенезон.bmp", txLoadImage(),  80, 140, 240, 420, false, "Одежда"};
-    menuPic[3] = { 20, 250, "Pictures/Одежда/Пиджак.bmp",     txLoadImage(),      80, 140, 240, 420, false, "Одежда"};
-    menuPic[4] = { 20, 400, "Pictures/Одежда/Рубаха.bmp",     txLoadImage(),      80,  80, 240, 240, false, "Одежда"};
-    menuPic[5] = { 20, 550, "Pictures/Одежда/Джемпер.bmp",    txLoadImage(),     80,  80, 240, 240, false, "Одежда"};
-    menuPic[6] = {120, 100, txLoadImage(),      80, 140, 240, 420, false, "Одежда"};
-    menuPic[7] = {120, 250, txLoadImage("Pictures/Одежда/Блуза.bmp"),       80,  80, 240, 240, false, "Одежда"};
-    menuPic[8] = {120, 400, txLoadImage("Pictures/Одежда/Мини.bmp"),        80,  80, 240, 240, false, "Одежда"};
-    menuPic[9] = {120, 550, txLoadImage("Pictures/Одежда/Джинсы.bmp"),      80, 140, 240, 420, false, "Одежда"};
-    menuPic[10] = {20, 100, txLoadImage("Pictures/Уборы/Шлем.bmp"),         33,  33, 100, 105, false, "Уборы"};
-    menuPic[11] = {20, 200, txLoadImage("Pictures/Уборы/Диадема.bmp"),      33,  20, 100,  60, false, "Уборы"};
-    menuPic[12] = {20, 300, txLoadImage("Pictures/Уборы/Косынка.bmp"),      33,  20, 100,  60, false, "Уборы"};
-    menuPic[13] = {20, 100, txLoadImage("Pictures/Обувь/Кеды.bmp"),         80,  33, 240, 100, false, "Обувь"};
-    menuPic[14] = {20, 200, txLoadImage("Pictures/Обувь/Сапоги.bmp"),       80,  67, 240, 200, false, "Обувь"};
-    menuPic[15] = {20, 300, txLoadImage("Pictures/Обувь/Сапоги2.bmp"),      80, 100, 240, 300, false, "Обувь"};
-    menuPic[16] = {20, 100, txLoadImage("Pictures/Аксесуары/Кофе.bmp"),     30,  40,  90, 120, false, "Аксесуары"};
-    menuPic[17] = {20, 200, txLoadImage("Pictures/Аксесуары/Очки.bmp"),     47,  24, 140,  72, false, "Аксесуары"};
-    menuPic[18] = {20, 300, txLoadImage("Pictures/Аксесуары/Планшет.bmp"),  30,  33,  90, 100, false, "Аксесуары"};
-    menuPic[19] = {20, 400, txLoadImage("Pictures/Аксесуары/Часы.bmp"),     20,  50,  60, 150, false, "Аксесуары"};
+    menuPic[0] = { 20, 100, "Pictures/Персонаж/Girl.bmp",     txLoadImage("Pictures/Персонаж/Girl.bmp")};
+    menuPic[1] = { 20, 300, "Pictures/Персонаж/Boy.bmp",      txLoadImage("Pictures/Персонаж/Boy.bmp")};
+    menuPic[2] = { 20, 100, "Pictures/Одежда/Комбенезон.bmp", txLoadImage("Pictures/Одежда/Комбенезон.bmp")};
+    menuPic[3] = { 20, 250, "Pictures/Одежда/Пиджак.bmp",     txLoadImage("Pictures/Одежда/Пиджак.bmp")};
+    menuPic[4] = { 20, 400, "Pictures/Одежда/Рубаха.bmp",     txLoadImage("Pictures/Одежда/Рубаха.bmp")};
+    menuPic[5] = { 20, 550, "Pictures/Одежда/Джемпер.bmp",    txLoadImage("Pictures/Одежда/Джемпер.bmp")};
+    menuPic[6] = {120, 100, "Pictures/Одежда/Платье.bmp",     txLoadImage("Pictures/Одежда/Платье.bmp")};
+    menuPic[7] = {120, 250, "Pictures/Одежда/Блуза.bmp",      txLoadImage("Pictures/Одежда/Блуза.bmp")};
+    menuPic[8] = {120, 400, "Pictures/Одежда/Мини.bmp",       txLoadImage("Pictures/Одежда/Мини.bmp")};
+    menuPic[9] = {120, 550, "Pictures/Одежда/Джинсы.bmp",     txLoadImage("Pictures/Одежда/Джинсы.bmp")};
+    menuPic[10] = {20, 100, "Pictures/Уборы/Шлем.bmp",        txLoadImage("Pictures/Уборы/Шлем.bmp")};
+    menuPic[11] = {20, 200, "Pictures/Уборы/Диадема.bmp",     txLoadImage("Pictures/Уборы/Диадема.bmp")};
+    menuPic[12] = {20, 300, "Pictures/Уборы/Косынка.bmp",     txLoadImage("Pictures/Уборы/Косынка.bmp")};
+    menuPic[13] = {20, 100, "Pictures/Обувь/Кеды.bmp",        txLoadImage("Pictures/Обувь/Кеды.bmp")};
+    menuPic[14] = {20, 200, "Pictures/Обувь/Сапоги.bmp",      txLoadImage("Pictures/Обувь/Сапоги.bmp")};
+    menuPic[15] = {20, 300, "Pictures/Обувь/Сапоги2.bmp",     txLoadImage("Pictures/Обувь/Сапоги2.bmp")};
+    menuPic[16] = {20, 100, "Pictures/Аксесуары/Кофе.bmp",    txLoadImage("Pictures/Аксесуары/Кофе.bmp")};
+    menuPic[17] = {20, 200, "Pictures/Аксесуары/Очки.bmp",    txLoadImage("Pictures/Аксесуары/Очки.bmp")};
+    menuPic[18] = {20, 300, "Pictures/Аксесуары/Планшет.bmp", txLoadImage("Pictures/Аксесуары/Планшет.bmp")};
+    menuPic[19] = {20, 400, "Pictures/Аксесуары/Часы.bmp",    txLoadImage("Pictures/Аксесуары/Часы.bmp")};
 
+    for(int i=0; i<count_pic; i++)
+    {
+        menuPic[i].w = get_w(menuPic[i].adress);
+        menuPic[i].h = get_h(menuPic[i].adress);
 
+        /*
+        if(menuPic[i].category == )
+        {
+            menuPic[i].w_scr =            
+            menuPic[i].h_scr = 
+        }
+        */
+        
+        menuPic[i].w_scr = menuPic[i].w/3;
+        menuPic[i].h_scr = menuPic[i].h/3;
+
+        menuPic[i].visible = false;
+
+        string str = menuPic[i].adress;
+        int pos1 = str.find("/");
+        int pos2 = str.find("/", pos1+1);
+        menuPic[i].category = str.substr(pos1+1, pos2-pos1-1);
+    }
 
     //Инициализация картинки в центре
     Picture centrPic[100];
@@ -121,7 +169,9 @@ int main()
                     txSleep(10);
                 }
 
-                centrPic[nCentralPic] = {200, 100, menuPic[npic].pic,
+                centrPic[nCentralPic] = {200, 100,
+                                            menuPic[npic].adress,
+                                            menuPic[npic].pic,
                                             menuPic[npic].w,
                                             menuPic[npic].h,
                                             menuPic[npic].w,

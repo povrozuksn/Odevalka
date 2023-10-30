@@ -1,5 +1,7 @@
 #include "TXLib.h"
 
+using namespace std;
+
 struct Picture
 {
     int x;
@@ -28,4 +30,3 @@ struct Picture
                 txMouseY() >= y && txMouseY() <= y+h_scr);
     }
 };
-
