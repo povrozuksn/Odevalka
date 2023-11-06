@@ -2,6 +2,8 @@
 #include "buttom.cpp"
 #include "picture.cpp"
 #include <fstream>
+#include <stdio.h>
+#include <dirent.h>
 
 using namespace std;
 
@@ -25,6 +27,39 @@ int get_h(string adress)
     return h;
 }
 
+int readFromDir(string adress, Picture menuPic[], int count_pic)
+{
+    DIR *dir;
+    struct dirent *ent;
+    int X = 20;
+    int Y = 100;
+    if ((dir = opendir (adress.c_str())) != NULL)
+    {
+      while ((ent = readdir (dir)) != NULL)
+      {
+        if((string)ent->d_name != "." && (string)ent->d_name != "..")
+        {
+            if(Y<=550 && X == 20)
+            {
+                X = 20;
+            }
+            else if (Y>550)
+            {
+                X = 120;
+                Y = 100;
+            }
+            menuPic[count_pic].x = X;
+            menuPic[count_pic].y = Y;
+            menuPic[count_pic].adress = adress + (string)ent->d_name;
+            count_pic++;
+            Y += 150;
+        }
+      }
+      closedir (dir);
+    }
+
+    return count_pic;
+}
 
 int main()
 {
@@ -32,7 +67,7 @@ int main()
     txDisableAutoPause();
     txTextCursor (false);
     int count_btn = 5;
-    int count_pic = 20;
+    int count_pic = 0;
     int nCentralPic = 0;
     char str[100];
 
@@ -46,43 +81,20 @@ int main()
 
 
     //Инициализация картинки меню
-    Picture menuPic[count_pic];
-    menuPic[0] = { 20, 100, "Pictures/Персонаж/Girl.bmp",     txLoadImage("Pictures/Персонаж/Girl.bmp")};
-    menuPic[1] = { 20, 300, "Pictures/Персонаж/Boy.bmp",      txLoadImage("Pictures/Персонаж/Boy.bmp")};
-    menuPic[2] = { 20, 100, "Pictures/Одежда/Комбенезон.bmp", txLoadImage("Pictures/Одежда/Комбенезон.bmp")};
-    menuPic[3] = { 20, 250, "Pictures/Одежда/Пиджак.bmp",     txLoadImage("Pictures/Одежда/Пиджак.bmp")};
-    menuPic[4] = { 20, 400, "Pictures/Одежда/Рубаха.bmp",     txLoadImage("Pictures/Одежда/Рубаха.bmp")};
-    menuPic[5] = { 20, 550, "Pictures/Одежда/Джемпер.bmp",    txLoadImage("Pictures/Одежда/Джемпер.bmp")};
-    menuPic[6] = {120, 100, "Pictures/Одежда/Платье.bmp",     txLoadImage("Pictures/Одежда/Платье.bmp")};
-    menuPic[7] = {120, 250, "Pictures/Одежда/Блуза.bmp",      txLoadImage("Pictures/Одежда/Блуза.bmp")};
-    menuPic[8] = {120, 400, "Pictures/Одежда/Мини.bmp",       txLoadImage("Pictures/Одежда/Мини.bmp")};
-    menuPic[9] = {120, 550, "Pictures/Одежда/Джинсы.bmp",     txLoadImage("Pictures/Одежда/Джинсы.bmp")};
-    menuPic[10] = {20, 100, "Pictures/Уборы/Шлем.bmp",        txLoadImage("Pictures/Уборы/Шлем.bmp")};
-    menuPic[11] = {20, 200, "Pictures/Уборы/Диадема.bmp",     txLoadImage("Pictures/Уборы/Диадема.bmp")};
-    menuPic[12] = {20, 300, "Pictures/Уборы/Косынка.bmp",     txLoadImage("Pictures/Уборы/Косынка.bmp")};
-    menuPic[13] = {20, 100, "Pictures/Обувь/Кеды.bmp",        txLoadImage("Pictures/Обувь/Кеды.bmp")};
-    menuPic[14] = {20, 200, "Pictures/Обувь/Сапоги.bmp",      txLoadImage("Pictures/Обувь/Сапоги.bmp")};
-    menuPic[15] = {20, 300, "Pictures/Обувь/Сапоги2.bmp",     txLoadImage("Pictures/Обувь/Сапоги2.bmp")};
-    menuPic[16] = {20, 100, "Pictures/Аксесуары/Кофе.bmp",    txLoadImage("Pictures/Аксесуары/Кофе.bmp")};
-    menuPic[17] = {20, 200, "Pictures/Аксесуары/Очки.bmp",    txLoadImage("Pictures/Аксесуары/Очки.bmp")};
-    menuPic[18] = {20, 300, "Pictures/Аксесуары/Планшет.bmp", txLoadImage("Pictures/Аксесуары/Планшет.bmp")};
-    menuPic[19] = {20, 400, "Pictures/Аксесуары/Часы.bmp",    txLoadImage("Pictures/Аксесуары/Часы.bmp")};
+    Picture menuPic[100];
+
+    count_pic = readFromDir("Pictures/Персонаж/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Одежда/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Уборы/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Обувь/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Аксесуары/", menuPic, count_pic);
 
     for(int i=0; i<count_pic; i++)
     {
+        menuPic[i].pic = txLoadImage(menuPic[i].adress.c_str());
+
         menuPic[i].w = get_w(menuPic[i].adress);
         menuPic[i].h = get_h(menuPic[i].adress);
-
-        /*
-        if(menuPic[i].category == )
-        {
-            menuPic[i].w_scr =
-            menuPic[i].h_scr =
-        }
-        */
-
-        menuPic[i].w_scr = menuPic[i].w/3;
-        menuPic[i].h_scr = menuPic[i].h/3;
 
         menuPic[i].visible = false;
 
@@ -90,6 +102,17 @@ int main()
         int pos1 = str.find("/");
         int pos2 = str.find("/", pos1+1);
         menuPic[i].category = str.substr(pos1+1, pos2-pos1-1);
+
+        if(menuPic[i].category == "Уборы" || menuPic[i].category == "Аксесуары")
+        {
+            menuPic[i].w_scr = menuPic[i].w/2;
+            menuPic[i].h_scr = menuPic[i].h/2;
+        }
+        else
+        {
+            menuPic[i].w_scr = menuPic[i].w/3;
+            menuPic[i].h_scr = menuPic[i].h/3;
+        }
     }
 
     //Инициализация картинки в центре
