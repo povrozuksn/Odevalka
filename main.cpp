@@ -66,7 +66,7 @@ int main()
     txCreateWindow (1200, 700);
     txDisableAutoPause();
     txTextCursor (false);
-    int count_btn = 5;
+    int count_btn = 7;
     int count_pic = 0;
     int nCentralPic = 0;
     char str[100];
@@ -78,6 +78,8 @@ int main()
     btn[2] = {350, "Голов. уборы", "Уборы"};
     btn[3] = {500, "Обувь", "Обувь"};
     btn[4] = {650, "Аксесуары", "Аксесуары"};
+    btn[5] = {800, "Сумки", "Сумки"};
+    btn[6] = {950, "Животные", "Животные"};
 
 
     //Инициализация картинки меню
@@ -88,6 +90,8 @@ int main()
     count_pic = readFromDir("Pictures/Уборы/", menuPic, count_pic);
     count_pic = readFromDir("Pictures/Обувь/", menuPic, count_pic);
     count_pic = readFromDir("Pictures/Аксесуары/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Сумки/", menuPic, count_pic);
+    count_pic = readFromDir("Pictures/Животные/", menuPic, count_pic);
 
     for(int i=0; i<count_pic; i++)
     {
