@@ -3,6 +3,7 @@
 struct Button
 {
    int x;
+   int y;
    const char* name;
    string category;
 
@@ -10,21 +11,21 @@ struct Button
     {
         txSetColor(TX_TRANSPARENT);
         txSetFillColor(TX_GRAY);
-        Win32::RoundRect (txDC(), x+5, 35, x+145, 65, 30, 30);
+        Win32::RoundRect (txDC(), x+5, y+5, x+145, y+35, 30, 30);
         txSetColor(TX_BLACK, 2);
         txSetFillColor(TX_WHITE);
         if (click()) txSetFillColor(RGB(250, 180, 180));
-        Win32::RoundRect (txDC(), x, 30, x+140, 60, 30, 30);
+        Win32::RoundRect (txDC(), x, y, x+140, y+30, 30, 30);
         txSetColor(TX_BLACK);
         txSelectFont("Times New Roman", 24);
-        txDrawText (x, 30, x+140, 60, name);
+        txDrawText (x, y, x+140, y+30, name);
     }
 
     bool click()
     {
         return( txMouseButtons() == 1 &&
                 txMouseX() >= x && txMouseX() <= x+140 &&
-                txMouseY() >= 35 && txMouseY() <= 65);
+                txMouseY() >= y && txMouseY() <= y+30);
     }
 
 };

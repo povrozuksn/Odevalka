@@ -61,25 +61,28 @@ int readFromDir(string adress, Picture menuPic[], int count_pic)
     return count_pic;
 }
 
+const int count_btn = 8;
+const int btn_save = count_btn-1;
+
 int main()
 {
     txCreateWindow (1200, 700);
     txDisableAutoPause();
     txTextCursor (false);
-    int count_btn = 7;
     int count_pic = 0;
     int nCentralPic = 0;
     char str[100];
 
     //Инициализация кнопок
     Button btn[count_btn];
-    btn[0] = {50, "Персонаж", "Персонаж"};
-    btn[1] = {200, "Одежда", "Одежда"};
-    btn[2] = {350, "Голов. уборы", "Уборы"};
-    btn[3] = {500, "Обувь", "Обувь"};
-    btn[4] = {650, "Аксесуары", "Аксесуары"};
-    btn[5] = {800, "Сумки", "Сумки"};
-    btn[6] = {950, "Животные", "Животные"};
+    btn[0] = {50, 30, "Персонаж", "Персонаж"};
+    btn[1] = {200,30, "Одежда", "Одежда"};
+    btn[2] = {350,30, "Голов. уборы", "Уборы"};
+    btn[3] = {500,30, "Обувь", "Обувь"};
+    btn[4] = {650,30, "Аксесуары", "Аксесуары"};
+    btn[5] = {800,30, "Сумки", "Сумки"};
+    btn[6] = {950,30, "Животные", "Животные"};
+    btn[7] = {850,650, "Сохранить", ""};
 
 
     //Инициализация картинки меню
@@ -279,6 +282,25 @@ int main()
             mouse_click = true;
         }
 
+        //Сохранение результатов в файл
+        if(btn[btn_save].click())
+        {
+            ofstream fileout;               // поток для записи
+            fileout.open("resalt.txt");      // открываем файл для записи
+            if (fileout.is_open())
+            {
+                for(int i=0; i<nCentralPic; i++)
+                {
+                    if(centrPic[i].visible)
+                    {
+                        fileout << centrPic[i].x << endl;
+                        fileout << centrPic[i].y << endl;
+                        fileout << centrPic[i].adress << endl;
+                    }
+                }
+            }
+            fileout.close();                // закрываем файл для записи
+        }
 
 
         txEnd();
