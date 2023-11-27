@@ -61,8 +61,9 @@ int readFromDir(string adress, Picture menuPic[], int count_pic)
     return count_pic;
 }
 
-const int count_btn = 8;
-const int btn_save = count_btn-1;
+const int count_btn = 9;
+const int btn_save = count_btn-2;
+const int btn_load = count_btn-1;
 
 int main()
 {
@@ -83,6 +84,7 @@ int main()
     btn[5] = {800,30, "Сумки", "Сумки"};
     btn[6] = {950,30, "Животные", "Животные"};
     btn[7] = {850,650, "Сохранить", ""};
+    btn[8] = {1000,650, "Загрузить", ""};
 
 
     //Инициализация картинки меню
@@ -296,12 +298,49 @@ int main()
                         fileout << centrPic[i].x << endl;
                         fileout << centrPic[i].y << endl;
                         fileout << centrPic[i].adress << endl;
+                        fileout << centrPic[i].w_scr << endl;
+                        fileout << centrPic[i].h_scr << endl;
                     }
                 }
             }
             fileout.close();                // закрываем файл для записи
         }
-                                            
+
+        //Чтение из файла
+        if(btn[btn_load].click())
+        {
+            char buff[50];
+            ifstream filein("resalt.txt"); // окрываем файл для чтения
+
+            while (filein.good())
+            {
+                filein.getline(buff, 50);
+                int x = atoi(buff);
+                filein.getline(buff, 50);
+                int y = atoi(buff);
+                filein.getline(buff, 50);
+                string adress = buff;
+
+                for(int i = 0; i<count_pic; i++)
+                {
+                    if(menuPic[i].adress == adress)
+                    {
+                        centrPic[nCentralPic] = {x, y,
+                                            menuPic[i].adress,
+                                            menuPic[i].pic,
+                                            menuPic[i].w,
+                                            menuPic[i].h,
+                                            menuPic[i].w,
+                                            menuPic[i].h,
+                                            true,
+                                            menuPic[i].category};
+                        nCentralPic ++;
+                    }
+                }
+            }
+            filein.close();     // закрываем файл
+        }
+
 
         txEnd();
         txSleep(50);
