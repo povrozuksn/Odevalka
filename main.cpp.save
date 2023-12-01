@@ -61,6 +61,47 @@ int readFromDir(string adress, Picture menuPic[], int count_pic)
     return count_pic;
 }
 
+string runFileDialog(bool isSave)
+{
+    string FileName = "";
+
+    OPENFILENAME ofn;
+    TCHAR szFile[260] = {0};
+
+    // Initialize OPENFILENAME
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = txWindow();
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = ("Text\0*.TXT\0");
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    // Display the Open dialog box.
+    if(isSave)
+    {
+        if (GetSaveFileName(&ofn)==TRUE)
+        {
+           FileName = ofn.lpstrFile;
+           FileName = FileName + ".txt";
+
+        }
+    }
+    else
+    {
+        if (GetOpenFileName(&ofn)==TRUE)
+        {
+           FileName = ofn.lpstrFile;
+        }
+    }
+    return FileName;
+}
+
+
 const int count_btn = 9;
 const int btn_save = count_btn-2;
 const int btn_load = count_btn-1;
@@ -287,8 +328,11 @@ int main()
         //Сохранение результатов в файл
         if(btn[btn_save].click())
         {
+            string FileName = runFileDialog(true);
+
+
             ofstream fileout;               // поток для записи
-            fileout.open("resalt.txt");      // открываем файл для записи
+            fileout.open(FileName);      // открываем файл для записи
             if (fileout.is_open())
             {
                 for(int i=0; i<nCentralPic; i++)
@@ -309,8 +353,16 @@ int main()
         //Чтение из файла
         if(btn[btn_load].click())
         {
+
+            string FileName = runFileDialog(false);
+            
+            for(int i = 0; i<count_pic; i++)
+            {
+                centrPic[i].visible = false;
+            }
+
             char buff[50];
-            ifstream filein("resalt.txt"); // окрываем файл для чтения
+            ifstream filein(FileName); // окрываем файл для чтения
 
             while (filein.good())
             {
@@ -320,20 +372,25 @@ int main()
                 int y = atoi(buff);
                 filein.getline(buff, 50);
                 string adress = buff;
+                filein.getline(buff, 50);
+                int w_scr = atoi(buff);
+                filein.getline(buff, 50);
+                int h_scr = atoi(buff);
 
                 for(int i = 0; i<count_pic; i++)
                 {
+
                     if(menuPic[i].adress == adress)
                     {
                         centrPic[nCentralPic] = {x, y,
-                                            menuPic[i].adress,
-                                            menuPic[i].pic,
-                                            menuPic[i].w,
-                                            menuPic[i].h,
-                                            menuPic[i].w,
-                                            menuPic[i].h,
-                                            true,
-                                            menuPic[i].category};
+                                                menuPic[i].adress,
+                                                menuPic[i].pic,
+                                                w_scr,
+                                                h_scr,
+                                                menuPic[i].w,
+                                                menuPic[i].h,
+                                                true,
+                                                menuPic[i].category};
                         nCentralPic ++;
                     }
                 }
