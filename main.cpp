@@ -102,9 +102,23 @@ string runFileDialog(bool isSave)
 }
 
 
-const int count_btn = 9;
-const int btn_save = count_btn-2;
-const int btn_load = count_btn-1;
+const int count_btn = 11;
+//Кнопка сохранения
+const int btn_save = count_btn-4;
+//Кнопка загрузки
+const int btn_load = count_btn-3;
+//Кнопка справки
+const int btn_help = count_btn-2;
+//Кнопка меню
+const int btn_menu = count_btn-1;
+
+//Режим меню
+const int page_menu = 0;
+//Режим редактора
+const int page_redactor = 1;
+//Режим справки
+const int page_help = 2;
+
 
 int main()
 {
@@ -115,6 +129,8 @@ int main()
     int nCentralPic = 0;
     char str[100];
 
+    int page = page_menu;
+
     //Инициализация кнопок
     Button btn[count_btn];
     btn[0] = {50, 30, "Персонаж", "Персонаж"};
@@ -124,8 +140,10 @@ int main()
     btn[4] = {650,30, "Аксесуары", "Аксесуары"};
     btn[5] = {800,30, "Сумки", "Сумки"};
     btn[6] = {950,30, "Животные", "Животные"};
-    btn[7] = {850,650, "Сохранить", ""};
-    btn[8] = {1000,650, "Загрузить", ""};
+    btn[7] = {1000,550, "Сохранить", ""};
+    btn[8] = {1000,600, "Загрузить", ""};
+    btn[9] = {1000,650, "Справка", ""};
+    btn[10] = {530,350, "Начать", ""};
 
 
     //Инициализация картинки меню
@@ -174,230 +192,275 @@ int main()
     while(!GetAsyncKeyState (VK_ESCAPE))
     {
         txBegin();
-        txSetColor(TX_YELLOW);
+        txSetColor(TX_BLACK);
         txSetFillColor(TX_YELLOW);
         txClear();
 
-        //Рисование кнопок
-        for(int i=0; i<count_btn; i++)
+        //Режим меню
+        if(page == page_menu)
         {
-            btn[i].draw();
-        }
-        //Рисование картинок
-        //Меню
-        for(int i=0; i<count_pic; i++)
-        {
-            menuPic[i].draw();
-        }
-        //Центральные
-        for(int i=0; i<nCentralPic; i++)
-        {
-            centrPic[i].draw();
+            btn[btn_menu].draw();
+            btn[btn_help].draw();
+            if(btn[btn_menu].click())
+            {
+               page = page_redactor;
+               txSleep(100);
+            }
         }
 
-        //Установка видимости картинок-меню по категории
-        for(int ib=0; ib<count_btn; ib++)
+        //Режим редактора
+        if(page == page_redactor)
         {
-            if(btn[ib].click())
+
+            //Рисование кнопок
+            for(int i=0; i<count_btn-1; i++)
             {
-                for(int ip=0; ip<count_pic; ip++)
+                btn[i].draw();
+            }
+            //Рисование картинок
+            //Меню
+            for(int i=0; i<count_pic; i++)
+            {
+                menuPic[i].draw();
+            }
+            //Центральные
+            for(int i=0; i<nCentralPic; i++)
+            {
+                centrPic[i].draw();
+            }
+
+            //Установка видимости картинок-меню по категории
+            for(int ib=0; ib<count_btn; ib++)
+            {
+                if(btn[ib].click())
                 {
-                    menuPic[ip].visible = false;
-                    if(menuPic[ip].category == btn[ib].category)
+                    for(int ip=0; ip<count_pic; ip++)
                     {
-                        menuPic[ip].visible = true;
+                        menuPic[ip].visible = false;
+                        if(menuPic[ip].category == btn[ib].category)
+                        {
+                            menuPic[ip].visible = true;
+                        }
                     }
                 }
             }
-        }
 
-        /*
-        //Видимость центральных картинок (проект типа ФОТОРОБОТ)
-        for(int npic=0; npic<count_pic; npic++)
-        {
-            if(menuPic[npic].click() && menuPic[npic].visible)
+            /*
+            //Видимость центральных картинок (проект типа ФОТОРОБОТ)
+            for(int npic=0; npic<count_pic; npic++)
             {
-                for(int npic1=0; npic1<count_pic; npic1++)
+                if(menuPic[npic].click() && menuPic[npic].visible)
                 {
-                    if(centrPic[npic1].category == centrPic[npic].category)
+                    for(int npic1=0; npic1<count_pic; npic1++)
                     {
-                        centrPic[npic1].visible = false;
+                        if(centrPic[npic1].category == centrPic[npic].category)
+                        {
+                            centrPic[npic1].visible = false;
+                        }
                     }
-                }
-                centrPic[npic].visible = !centrPic[npic].visible;
-                txSleep(100);
-            }
-        }
-        */
-
-        //Видимость центральных картинок (проект типа ПЛАНЕРОВКА)
-        for(int npic=0; npic<count_pic; npic++)
-        {
-            if(menuPic[npic].click() && menuPic[npic].visible)
-            {
-                while(txMouseButtons() == 1)
-                {
-                    txSleep(10);
-                }
-
-                centrPic[nCentralPic] = {200, 100,
-                                            menuPic[npic].adress,
-                                            menuPic[npic].pic,
-                                            menuPic[npic].w,
-                                            menuPic[npic].h,
-                                            menuPic[npic].w,
-                                            menuPic[npic].h,
-                                            menuPic[npic].visible,
-                                            menuPic[npic].category};
-                nCentralPic ++;
-            }
-
-        }
-
-        //Выбор центральной картинки
-        for(int i=0; i<nCentralPic; i++)
-        {
-            if(centrPic[i].click() && centrPic[i].visible)
-                {
-                    vybor = i;
-                    mouse_click = false;
-                }
-        }
-
-        /*
-        sprintf(str, "Индекс выбранной картинки = %d", vybor);
-        txTextOut(50, 600, str);
-        sprintf(str, "Колическтво центральных = %d", nCentralPic);
-        txTextOut(50, 650, str);
-        */
-
-        if(vybor>=0)
-        {
-             if(GetAsyncKeyState (VK_LEFT))
-             {
-                centrPic[vybor].x -= 5;
-             }
-             if(GetAsyncKeyState (VK_RIGHT))
-             {
-                centrPic[vybor].x += 5;
-             }
-             if(GetAsyncKeyState (VK_UP))
-             {
-                centrPic[vybor].y -= 5;
-             }
-             if(GetAsyncKeyState (VK_DOWN))
-             {
-                centrPic[vybor].y += 5;
-             }
-             if(GetAsyncKeyState (VK_OEM_PLUS) || GetAsyncKeyState (VK_ADD))
-             {
-                centrPic[vybor].w_scr = centrPic[vybor].w_scr * 1.1;
-                centrPic[vybor].h_scr = centrPic[vybor].h_scr * 1.1;
-             }
-             if(GetAsyncKeyState (VK_OEM_MINUS) || GetAsyncKeyState (VK_SUBTRACT))
-             {
-                centrPic[vybor].w_scr = centrPic[vybor].w_scr * 0.9;
-                centrPic[vybor].h_scr = centrPic[vybor].h_scr * 0.9;
-             }
-        }
-
-        if(vybor>=0)
-        {
-            if(txMouseButtons() == 1 && !mouse_click)
-            {
-                centrPic[vybor].x = txMouseX() - centrPic[vybor].w_scr/2;
-                centrPic[vybor].y = txMouseY() - centrPic[vybor].h_scr/2;
-            }
-            else
-            {
-                if(txMouseButtons() != 1)
-                {
-                    mouse_click = true;
+                    centrPic[npic].visible = !centrPic[npic].visible;
+                    txSleep(100);
                 }
             }
-        }
+            */
 
-        if(vybor>=0 && GetAsyncKeyState (VK_DELETE))
-        {
-            centrPic[vybor] = centrPic[nCentralPic-1];
-            nCentralPic--;
-            vybor = -1;
-            mouse_click = true;
-        }
-
-        //Сохранение результатов в файл
-        if(btn[btn_save].click())
-        {
-            string FileName = runFileDialog(true);
-
-
-            ofstream fileout;               // поток для записи
-            fileout.open(FileName);      // открываем файл для записи
-            if (fileout.is_open())
+            //Видимость центральных картинок (проект типа ПЛАНЕРОВКА)
+            for(int npic=0; npic<count_pic; npic++)
             {
-                for(int i=0; i<nCentralPic; i++)
+                if(menuPic[npic].click() && menuPic[npic].visible)
                 {
-                    if(centrPic[i].visible)
+                    while(txMouseButtons() == 1)
                     {
-                        fileout << centrPic[i].x << endl;
-                        fileout << centrPic[i].y << endl;
-                        fileout << centrPic[i].adress << endl;
-                        fileout << centrPic[i].w_scr << endl;
-                        fileout << centrPic[i].h_scr << endl;
+                        txSleep(10);
+                    }
+
+                    centrPic[nCentralPic] = {200, 100,
+                                                menuPic[npic].adress,
+                                                menuPic[npic].pic,
+                                                menuPic[npic].w,
+                                                menuPic[npic].h,
+                                                menuPic[npic].w,
+                                                menuPic[npic].h,
+                                                menuPic[npic].visible,
+                                                menuPic[npic].category};
+                    nCentralPic ++;
+                }
+
+            }
+
+            //Выбор центральной картинки
+            for(int i=0; i<nCentralPic; i++)
+            {
+                if(centrPic[i].click() && centrPic[i].visible)
+                    {
+                        vybor = i;
+                        mouse_click = false;
+                    }
+            }
+
+            /*
+            sprintf(str, "Индекс выбранной картинки = %d", vybor);
+            txTextOut(50, 600, str);
+            sprintf(str, "Колическтво центральных = %d", nCentralPic);
+            txTextOut(50, 650, str);
+            */
+
+            if(vybor>=0)
+            {
+                 if(GetAsyncKeyState (VK_LEFT))
+                 {
+                    centrPic[vybor].x -= 5;
+                 }
+                 if(GetAsyncKeyState (VK_RIGHT))
+                 {
+                    centrPic[vybor].x += 5;
+                 }
+                 if(GetAsyncKeyState (VK_UP))
+                 {
+                    centrPic[vybor].y -= 5;
+                 }
+                 if(GetAsyncKeyState (VK_DOWN))
+                 {
+                    centrPic[vybor].y += 5;
+                 }
+                 if(GetAsyncKeyState (VK_OEM_PLUS) || GetAsyncKeyState (VK_ADD))
+                 {
+                    centrPic[vybor].w_scr = centrPic[vybor].w_scr * 1.1;
+                    centrPic[vybor].h_scr = centrPic[vybor].h_scr * 1.1;
+                 }
+                 if(GetAsyncKeyState (VK_OEM_MINUS) || GetAsyncKeyState (VK_SUBTRACT))
+                 {
+                    centrPic[vybor].w_scr = centrPic[vybor].w_scr * 0.9;
+                    centrPic[vybor].h_scr = centrPic[vybor].h_scr * 0.9;
+                 }
+            }
+
+            if(vybor>=0)
+            {
+                if(txMouseButtons() == 1 && !mouse_click)
+                {
+                    centrPic[vybor].x = txMouseX() - centrPic[vybor].w_scr/2;
+                    centrPic[vybor].y = txMouseY() - centrPic[vybor].h_scr/2;
+                }
+                else
+                {
+                    if(txMouseButtons() != 1)
+                    {
+                        mouse_click = true;
                     }
                 }
             }
-            fileout.close();                // закрываем файл для записи
-        }
 
-        //Чтение из файла
-        if(btn[btn_load].click())
-        {
-
-            string FileName = runFileDialog(false);
-
-            for(int i = 0; i<count_pic; i++)
+            if(vybor>=0 && GetAsyncKeyState (VK_DELETE))
             {
-                centrPic[i].visible = false;
+                centrPic[vybor] = centrPic[nCentralPic-1];
+                nCentralPic--;
+                vybor = -1;
+                mouse_click = true;
             }
 
-            char buff[50];
-            ifstream filein(FileName); // окрываем файл для чтения
-
-            while (filein.good())
+            //Сохранение результатов в файл
+            if(btn[btn_save].click())
             {
-                filein.getline(buff, 50);
-                int x = atoi(buff);
-                filein.getline(buff, 50);
-                int y = atoi(buff);
-                filein.getline(buff, 50);
-                string adress = buff;
-                filein.getline(buff, 50);
-                int w_scr = atoi(buff);
-                filein.getline(buff, 50);
-                int h_scr = atoi(buff);
+                string FileName = runFileDialog(true);
+
+
+                ofstream fileout;               // поток для записи
+                fileout.open(FileName);      // открываем файл для записи
+                if (fileout.is_open())
+                {
+                    for(int i=0; i<nCentralPic; i++)
+                    {
+                        if(centrPic[i].visible)
+                        {
+                            fileout << centrPic[i].x << endl;
+                            fileout << centrPic[i].y << endl;
+                            fileout << centrPic[i].adress << endl;
+                            fileout << centrPic[i].w_scr << endl;
+                            fileout << centrPic[i].h_scr << endl;
+                        }
+                    }
+                }
+                fileout.close();                // закрываем файл для записи
+            }
+
+            //Чтение из файла
+            if(btn[btn_load].click())
+            {
+
+                string FileName = runFileDialog(false);
 
                 for(int i = 0; i<count_pic; i++)
                 {
+                    centrPic[i].visible = false;
+                }
 
-                    if(menuPic[i].adress == adress)
+                char buff[50];
+                ifstream filein(FileName); // окрываем файл для чтения
+
+                while (filein.good())
+                {
+                    filein.getline(buff, 50);
+                    int x = atoi(buff);
+                    filein.getline(buff, 50);
+                    int y = atoi(buff);
+                    filein.getline(buff, 50);
+                    string adress = buff;
+                    filein.getline(buff, 50);
+                    int w_scr = atoi(buff);
+                    filein.getline(buff, 50);
+                    int h_scr = atoi(buff);
+
+                    for(int i = 0; i<count_pic; i++)
                     {
-                        centrPic[nCentralPic] = {x, y,
-                                                menuPic[i].adress,
-                                                menuPic[i].pic,
-                                                w_scr,
-                                                h_scr,
-                                                menuPic[i].w,
-                                                menuPic[i].h,
-                                                true,
-                                                menuPic[i].category};
-                        nCentralPic ++;
+
+                        if(menuPic[i].adress == adress)
+                        {
+                            centrPic[nCentralPic] = {x, y,
+                                                    menuPic[i].adress,
+                                                    menuPic[i].pic,
+                                                    w_scr,
+                                                    h_scr,
+                                                    menuPic[i].w,
+                                                    menuPic[i].h,
+                                                    true,
+                                                    menuPic[i].category};
+                            nCentralPic ++;
+                        }
                     }
                 }
+                filein.close();     // закрываем файл
             }
-            filein.close();     // закрываем файл
+
+            if(btn[btn_help].click())
+            {
+               page = page_help;
+               btn[btn_help].name = "Вернуться";
+               txSleep(100);
+            }
+
         }
 
+        //Режим справки
+        else if(page == page_help)
+        {
+            txSelectFont("Times New Roman", 42);
+            txDrawText(0, 200, 1200, 600,
+                        "Программа 'Гардероб'.\n\n"
+                        "Выбирай персонажа, одежду, аксесуары.\n"
+                        "Комбинируй по своему вкусу.\n"
+                        "Картинки передвигаются стрелочками и мышкой\n"
+                        "Увеличить '+', уменьшить '-'\n"
+                        "Результат можно сохранять в txt-формате и загружать\n"
+                        "Выход из программы - 'Escape'.\n");
+            btn[btn_help].draw();
+            if(btn[btn_help].click())
+            {
+               page = page_redactor;
+               btn[btn_help].name = "Справка";
+               txSleep(100);
+            }
+        }
 
         txEnd();
         txSleep(50);
