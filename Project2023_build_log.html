@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <tt>
-Build started on: <u>04-12-2023 at 19:52.12</u><br />
-Build ended on: <u>04-12-2023 at 19:52.17</u><p />
+Build started on: <u>08-12-2023 at 19:38.12</u><br />
+Build ended on: <u>08-12-2023 at 19:38.17</u><p />
 <b>-------------- Build: Debug in Project2023 (compiler: GNU GCC Compiler)---------------</b><br />
 g++.bat -Wall -fexceptions  -g     -c C:\Users\root\source\repos\Project2023\main.cpp -o obj\Debug\main.o<br />
 ------------------------------------------------------------------------------------------------------<br />
@@ -27,6 +27,21 @@ C:\Users\root\source\repos\Project2023\main.cpp: In function 'std::string runFil
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:64:8: warning: no previous declaration for 'std::string runFileDialog(bool)' [-Wmissing-declarations]</font><br />
  string runFileDialog(bool isSave)<br />
         ^<br />
+C:\Users\root\source\repos\Project2023\main.cpp: In function 'bool SaveBMPFile(char*, HBITMAP, HDC, int, int)':<br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:109:6: warning: no previous declaration for 'bool SaveBMPFile(char*, HBITMAP, HDC, int, int)' [-Wmissing-declarations]</font><br />
+ bool SaveBMPFile(char *filename, HBITMAP bitmap, HDC bitmapDC, int width, int height)<br />
+      ^<br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:111:10: warning: unused variable 'Success' [-Wunused-variable]</font><br />
+     bool Success=0;<br />
+          ^<br />
+C:\Users\root\source\repos\Project2023\main.cpp: At global scope:<br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:109:6: warning: unused parameter 'bitmap' [-Wunused-parameter]</font><br />
+ bool SaveBMPFile(char *filename, HBITMAP bitmap, HDC bitmapDC, int width, int height)<br />
+      ^<br />
+C:\Users\root\source\repos\Project2023\main.cpp: In function 'bool ScreenCapture(int, int, int, int, char*, HWND)':<br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:190:6: warning: no previous declaration for 'bool ScreenCapture(int, int, int, int, char*, HWND)' [-Wmissing-declarations]</font><br />
+ bool ScreenCapture(int x, int y, int width, int height, char *filename, HWND hwnd)<br />
+      ^<br />
 In file included from C:\Users\root\source\repos\Project2023\main.cpp:2:0:<br />
 C:\Users\root\source\repos\Project2023\buttom.cpp: In constructor 'Button::Button()':<br />
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\buttom.cpp:3:8: warning: 'Button::x' should be initialized in the member initialization list [-Weffc++]</font><br />
@@ -36,7 +51,7 @@ C:\Users\root\source\repos\Project2023\buttom.cpp: In constructor 'Button::Butto
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\buttom.cpp:3:8: warning: 'Button::name' should be initialized in the member initialization list [-Weffc++]</font><br />
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\buttom.cpp:3:8: warning: 'Button::category' should be initialized in the member initialization list [-Weffc++]</font><br />
 C:\Users\root\source\repos\Project2023\main.cpp: In function 'int main()':<br />
-C:\Users\root\source\repos\Project2023\main.cpp:135:25: note: synthesized method 'Button::Button()' first required here <br />
+C:\Users\root\source\repos\Project2023\main.cpp:247:25: note: synthesized method 'Button::Button()' first required here <br />
      Button btn[count_btn];<br />
                          ^<br />
 In file included from C:\Users\root\source\repos\Project2023\main.cpp:3:0:<br />
@@ -54,34 +69,37 @@ C:\Users\root\source\repos\Project2023\picture.cpp: In constructor 'Picture::Pic
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\picture.cpp:5:8: warning: 'Picture::visible' should be initialized in the member initialization list [-Weffc++]</font><br />
 <font color="#0000ff">C:\Users\root\source\repos\Project2023\picture.cpp:5:8: warning: 'Picture::category' should be initialized in the member initialization list [-Weffc++]</font><br />
 C:\Users\root\source\repos\Project2023\main.cpp: In function 'int main()':<br />
-C:\Users\root\source\repos\Project2023\main.cpp:150:24: note: synthesized method 'Picture::Picture()' first required here <br />
+C:\Users\root\source\repos\Project2023\main.cpp:264:24: note: synthesized method 'Picture::Picture()' first required here <br />
      Picture menuPic[100];<br />
                         ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:169:16: warning: declaration of 'str' shadows a previous local [-Wshadow]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:283:16: warning: declaration of 'str' shadows a previous local [-Wshadow]</font><br />
          string str = menuPic[i].adress;<br />
                 ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:130:10: warning: shadowed declaration is here [-Wshadow]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:242:10: warning: shadowed declaration is here [-Wshadow]</font><br />
      char str[100];<br />
           ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:328:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:453:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].w_scr = centrPic[vybor].w_scr * 1.1;<br />
                                                                    ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:329:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:454:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].h_scr = centrPic[vybor].h_scr * 1.1;<br />
                                                                    ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:333:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:458:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].w_scr = centrPic[vybor].w_scr * 0.9;<br />
                                                                    ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:334:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:459:67: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].h_scr = centrPic[vybor].h_scr * 0.9;<br />
                                                                    ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:342:52: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:467:52: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].x = txMouseX() - centrPic[vybor].w_scr/2;<br />
                                                     ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:343:52: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:468:52: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]</font><br />
                      centrPic[vybor].y = txMouseY() - centrPic[vybor].h_scr/2;<br />
                                                     ^<br />
-<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:130:10: warning: unused variable 'str' [-Wunused-variable]</font><br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:569:75: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]</font><br />
+                 ScreenCapture(250, 100, 700, 600, "result.bmp", txWindow());<br />
+                                                                           ^<br />
+<font color="#0000ff">C:\Users\root\source\repos\Project2023\main.cpp:242:10: warning: unused variable 'str' [-Wunused-variable]</font><br />
      char str[100];<br />
           ^<br />
 ------------------------------------------------------------------------------------------------------<br />
@@ -89,7 +107,7 @@ Autosaving to the Git repository in C:/Users/root/source/repos/Project2023/.git-
 g++.exe  -o bin\Debug\Project2023.exe obj\Debug\buttom.o obj\Debug\main.o obj\Debug\picture.o     -mwindows<br />
 Output size is 3,12 MB<br />
 <font color="#0000ff">Process terminated with status 0 (0 minutes, 5 seconds)</font><br />
-<font color="#0000ff">0 errors, 27 warnings (0 minutes, 5 seconds)</font><br />
+<font color="#0000ff">0 errors, 32 warnings (0 minutes, 5 seconds)</font><br />
 </tt>
 </body>
 </html>
